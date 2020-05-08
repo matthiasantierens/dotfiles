@@ -232,3 +232,7 @@ assign [class=Evolution|Rambox] 8
 #exec /usr/bin/firefox
 #exec /usr/bin/kitty
 for_window [class="^.*"] border pixel 1
+
+# Show and hide polybar
+bindsym $mod+Shift+p exec killall polybar
+bindsym $mod+p exec --no-startup-id $HOME/.config/polybar/launch.sh dark
