@@ -39,7 +39,7 @@ override-redirect = false
 # Top modules
 top-left = i3
 top-center = title
-top-right = cpu notify keyboard alsa network-short battery date
+top-right = notify keyboard alsa network-short battery date
 
 # Bottom modules
 bottom-left = 
