@@ -49,6 +49,7 @@ exec_always --no-startup-id /usr/bin/nitrogen --restore
 exec_always --no-startup-id /usr/bin/picom -b --unredir-if-possible --backend xr_glx_hybrid --vsync --use-damage --glx-no-stencil
 #exec_always --no-startup-id /usr/bin/picom
 exec --no-startup-id /usr/bin/lxpolkit
+#exec i3 --force-xinerama -V >>~/.i3/i3log 2>&1
 
 #################################################################
 # Keyboard shortcuts                                            #
@@ -253,3 +254,10 @@ bindsym $mod+Mod2+KP_5 exec "playerctl play-pause;"
 bindsym $mod+Mod2+KP_6 exec "playerctl next;"
 bindsym $mod+Mod2+KP_8 exec "pactl set-sink-volume 0 +5%;"
 bindsym $mod+Mod2+KP_2 exec "pactl set-sink-volume 0 -5%;"
+
+# For easier getting to workspaces with left hand
+bindsym $mod+z workspace 8
+bindsym $mod+x workspace 9
+
+# Random manpage
+bindsym $mod+m exec "kitty man -l $(find /usr/share/man/man1/ -type f | shuf -n 1)"
