@@ -1,22 +1,18 @@
 #################################################################
-##  _ _____                    __ _                            ##   
-## (_)___ /    ___ ___  _ __  / _(_) __ _                      ## 
+##  _ _____                    __ _                            ##
+## (_)___ /    ___ ___  _ __  / _(_) __ _                      ##
 ## | | |_ \   / __/ _ \| '_ \| |_| |/ _` |                     ##
 ## | |___) | | (_| (_) | | | |  _| | (_| |                     ##
 ## |_|____/   \___\___/|_| |_|_| |_|\__, |                     ##
 ##                                  |___/                      ##
-#################################################################
-## Made by: Maarten Beeckmans                                  ##
-#################################################################
-#edited by matthias :)
 #################################################################
 # Variables                                                     #
 #################################################################
 # Setting Mod key to Super key
 set $mod Mod4
 
-# Setting Terminal 
-set $terminal kitty
+# Setting Terminal
+set $terminal alacritty
 
 # set colors
 set $bg-color            #000000
@@ -31,7 +27,11 @@ set $urgent-bg-color     #E53935
 # Configuring gaps
 #for_window [class=".*"] border pixel 2
 #gaps outer 2
-#gaps inner 5 
+gaps inner 5
+#workspace 1 gaps inner 0
+#workspace 1 gaps outer 0
+smart_gaps on
+smart_gaps inverse_outer
 
 # Setting font
 font pango:DejaVu Sans Mono 8
@@ -39,18 +39,14 @@ font pango:DejaVu Sans Mono 8
 #################################################################
 # Startup applications                                          #
 #################################################################
-exec_always --no-startup-id /usr/bin/setxkbmap -layout be
-exec_always --no-startup-id /usr/bin/xrandr --output eDP-1 --mode 1920x1080 --rate 59.97 
+exec_always --no-startup-id /usr/bin/setxkbmap -layout be -option caps:swapescape
+#exec_always --no-startup-id /usr/bin/xrandr --output HDMI-0 --mode 2560x1080 --rate 74.99
 exec --no-startup-id /usr/bin/numlockx on
 exec_always --no-startup-id $HOME/.config/polybar/launch.sh dark
 exec_always --no-startup-id /usr/bin/dunst
 exec_always --no-startup-id /usr/bin/start-pulseaudio-x11
 exec_always --no-startup-id /usr/bin/nitrogen --restore
-exec_always --no-startup-id /usr/bin/picom -b --unredir-if-possible --backend xr_glx_hybrid --vsync --use-damage --glx-no-stencil
-#exec_always --no-startup-id /usr/bin/picom
-exec --no-startup-id /usr/bin/lxpolkit
-#exec i3 --force-xinerama -V >>~/.i3/i3log 2>&1
-
+exec_always --no-startup-id /usr/bin/picom -CGb --config /dev/null
 #################################################################
 # Keyboard shortcuts                                            #
 #################################################################
@@ -58,7 +54,7 @@ exec --no-startup-id /usr/bin/lxpolkit
   ## Application Shortcuts ##
 bindsym $mod+F1 exec spotify
 bindsym $mod+F2 exec firefox
-bindsym $mod+F3 exec pcmanfm
+bindsym $mod+F3 exec $terminal -e 'ranger'
 bindsym $mod+F4 exec vlc
 bindsym $mod+F5 exec $terminal -e 'ranger'
 bindsym $mod+Ctrl+m exec pavucontrol
@@ -67,34 +63,39 @@ bindsym $mod+Ctrl+m exec pavucontrol
 bindsym $mod+d exec rofi -dpi 135 -show-icons -theme base16-ocean -lines 12 -padding 18 -width 60 -location 0 -show drun -sidebar-mode -columns
 
 # start a terminal
-bindsym $mod+Return exec $terminal fish
+bindsym $mod+Return exec $terminal -e zsh
+bindsym $mod+Shift+Return exec /usr/bin/termite
 
 # kinde alt tabbing
 bindsym $mod+Tab workspace back_and_forth
-#bindsym Alt+Tab workspace back_and_forth
 
 # Taking a screenshot
-bindsym --release Print exec --no-startup-id "scrot ~/screenshots/screenshot-%Y-%m-%d-%T.png; notify-send 'screenshot taken'"
-bindsym --release Shift+Print exec --no-startup-id "scrot -c -t 5 ~/screenshots/screenshot-%Y-%m-%d-%T.png; notif    y-send 'screenshot taken'"
+bindsym --release Print exec --no-startup-id "scrot ~/Pictures/screenshots/screenshot-%Y-%m-%d-%T.png; notify-send 'screenshot taken'"
+bindsym --release Shift+Print exec --no-startup-id "scrot -c -t 5 ~/Pictures/screenshots/screenshot-%Y-%m-%d-%T.png; notif    y-send 'screenshot taken'"
 
   ## Function Keys ##
 # Keyboard shortcuts for screen brightness
-bindsym XF86MonBrightnessUp exec "intelbacklight -inc 50;"
-bindsym XF86MonBrightnessDown exec "intelbacklight -dec 50;"
+#bindsym XF86MonBrightnessUp exec "xbacklight -inc 5;"
+#bindsym XF86MonBrightnessDown exec "xbacklight -dec 5;"
 
 # Pulseaudio controls
-bindsym XF86AudioRaiseVolume exec "pactl set-sink-volume 0 +5%;"
-bindsym XF86AudioLowerVolume exec "pactl set-sink-volume 0 -5%;"
-bindsym XF86AudioMute exec "pactl set-sink-mute 0 toggle"
+bindsym XF86AudioRaiseVolume exec "amixer set Master 10%+;"
+bindsym XF86AudioLowerVolume exec "amixer set Master 10%-;"
+bindsym XF86AudioMute exec "amixer set Master toggle;"
+bindsym $mod+mod2+KP_2 exec "amixer set Master 10%-;"
+bindsym $mod+mod2+KP_8 exec "amixer set Master 10%+;"
+bindsym $mod+mod2+KP_4 exec "playerctl previous"
+bindsym $mod+mod2+KP_6 exec "playerctl next"
+bindsym $mod+mod2+KP_5 exec "playerctl play-pause"
 
   ## Layout shortcuts ##
 # resize window (you can also use the mouse for that)
 mode "resize" {
   # Resize keys
-  bindsym h resize shrink width 10 px or 10 ppt
-  bindsym j resize grow height 10 px or 10 ppt
-  bindsym k resize shrink height 10 px or 10 ppt
-  bindsym l resize grow width 10 px or 10 ppt
+  bindsym h resize grow width 10 px or 10 ppt
+  bindsym j resize shrink height 10 px or 10 ppt
+  bindsym k resize grow height 10 px or 10 ppt
+  bindsym l resize shrink width 10 px or 10 ppt
 
   # back to normal: Enter or Escape or $mod+r
   bindsym Return mode "default"
@@ -103,6 +104,9 @@ mode "resize" {
 }
 bindsym $mod+r mode "resize"
 
+# Changing gaps at runtime
+bindsym $mod+y gaps inner current plus 5
+bindsym $mod+t gaps inner current minus 5
 
 # kill focused window
 bindsym $mod+q kill
@@ -145,7 +149,7 @@ bindsym $mod+space focus mode_toggle
 bindsym $mod+a focus parent
 #
 # focus the child container
-bindsym $mod+Shift+s focus child
+bindsym $mod+Shift+a focus child
 
   ## Reloading i3 ##
 # reload the configuration file
@@ -207,7 +211,6 @@ for_window [urgent=latest] focus
 #################################################################
 # Set shut down, restart and locking features
 set $Locker i3lock --image=/home/matthias/Pictures/lockscreen.png --ignore-empty-password --show-failed-attempts && sleep 1
-#set $Locker i3lock-fancy
 
 set $mode_system System (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown
 mode "$mode_system" {
@@ -216,7 +219,7 @@ mode "$mode_system" {
   bindsym s exec --no-startup-id $Locker && systemctl suspend, mode "default"
   bindsym h exec --no-startup-id $Locker && systemctl hibernate, mode "default"
   bindsym r exec --no-startup-id systemctl reboot, mode "default"
-  bindsym Shift+s exec --no-startup-id systemctl poweroff -i, mode "default"  
+  bindsym Shift+s exec --no-startup-id systemctl poweroff -i, mode "default"
 
   # back to normal: Enter or Escape
   bindsym Return mode "default"
@@ -228,9 +231,8 @@ bindsym $mod+0 mode "$mode_system"
 #################################################################
 # Assign Applications to workspace                              #
 #################################################################
-assign [class=Rocket.Chat|Rambox] 8
-#assign [class=Spotify|CPod] 3
-
+assign [class=Rocket.Chat|Rambox|Slack] 8
+assign [class=Thunderbird] 9
 
 #################################################################
 # Autostart applications                                        #
@@ -248,16 +250,13 @@ for_window [class="^.*"] border pixel 1
 bindsym $mod+Shift+p exec killall polybar
 bindsym $mod+p exec --no-startup-id $HOME/.config/polybar/launch.sh dark
 
-# numpad mediakeys
-bindsym $mod+Mod2+KP_4 exec "playerctl previous;"
-bindsym $mod+Mod2+KP_5 exec "playerctl play-pause;"
-bindsym $mod+Mod2+KP_6 exec "playerctl next;"
-bindsym $mod+Mod2+KP_8 exec "pactl set-sink-volume 0 +5%;"
-bindsym $mod+Mod2+KP_2 exec "pactl set-sink-volume 0 -5%;"
-
 # For easier getting to workspaces with left hand
 bindsym $mod+z workspace 8
 bindsym $mod+x workspace 9
 
-# Random manpage
-bindsym $mod+m exec "kitty man -l $(find /usr/share/man/man1/ -type f | shuf -n 1)"
+# Random
+bindsym $mod+Shift+m exec "alacritty -e man -l $(find /usr/share/man/man1/ -type f | shuf -n 1)"
+bindsym $mod+m exec "termite -e htop;"
+bindsym $mod+Shift+w exec chromium https://duckduckgo.com/?q=weather+Oudenburg&atb=v218-1&ia=weather
+bindsym $mod+Ctrl+h exec "playerctl previous"
+bindsym $mod+o exec "pcmanfm"

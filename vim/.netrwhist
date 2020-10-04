@@ -1,0 +1,12 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhistcnt =9
+let g:netrw_dirhist_9='/home/matthias/Inuits/digipolis/ansible-cortex/templates'
+let g:netrw_dirhist_8='/home/matthias/.config/i3'
+let g:netrw_dirhist_7='/home/matthias/Inuits/digipolis/dp-ansible-playbooks'
+let g:netrw_dirhist_6='/home/matthias/Inuits/digipolis/ansible-prometheus/.travis'
+let g:netrw_dirhist_5='/home/matthias/.config/polybar'
+let g:netrw_dirhist_4='/home/matthias/Inuits/git/container-jobs/scripts'
+let g:netrw_dirhist_3='/home/matthias/Inuits/git/basecontainers/sonarscanner'
+let g:netrw_dirhist_2='/home/matthias/Inuits/git/package-config-dsl/prod/build/sonarscanner'
+let g:netrw_dirhist_1='/home/matthias/Inuits/git/trivy-jobs-dsl/scripts'
+let g:netrw_dirhist_0='/home/matthias/Inuits/git/trivy-jobs-dsl'
